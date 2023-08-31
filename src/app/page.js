@@ -2,6 +2,7 @@
 import { useState } from "react";
 export default function Home() {
     const [files, setFiles] = useState(null);
+    const [images, setImages] = useState([]);
 
     const handleForm = async (e) => {
         e.preventDefault();
@@ -20,11 +21,13 @@ export default function Home() {
             body: formData,
         });
         const data = await res.json();
-        console.log(data);
+
+        setImages(data.uploadedFiles);
+        console.log(images);
     };
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="p-24">
             <form
                 onSubmit={(e) => {
                     handleForm(e);
@@ -33,10 +36,12 @@ export default function Home() {
                 <input
                     type="file"
                     name="file"
+                    accept="image/*"
                     multiple
                     onChange={(e) => {
                         setFiles(e.target.files);
                     }}
+                    className="bg-red-400"
                 />
                 <button type="submit">Upload</button>
             </form>
