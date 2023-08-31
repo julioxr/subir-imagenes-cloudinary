@@ -25,27 +25,24 @@ const uploadFile = async (file) => {
 };
 
 export async function POST(request) {
-    try {
-        const data = await request.formData();
-        const files = data.getAll("files");
-        const resultadosSubida = [];
+    const data = await request.formData();
+    const files = data.getAll("files");
+    const resultadosSubida = [];
 
-        if (!files || files.length === 0) {
-            return NextResponse.json("No se ha enviado ningun archivo", {
-                status: 400,
-            });
-        }
-
-        for (const file of files) {
-            const archivoSubido = await uploadFile(file);
-            resultadosSubida.push(archivoSubido);
-        }
-
-        return NextResponse.json({
-            message: "Archivos subidos correctamente",
-            uploadedFiles: resultadosSubida,
+    if (!files || files.length === 0) {
+        return NextResponse.json("No se ha enviado ningun archivo", {
+            status: 400,
         });
-    } catch (error) {
-        console.log(error);
     }
+
+    for (const file of files) {
+        const archivoSubido = await uploadFile(file);
+        resultadosSubida.push(archivoSubido);
+    }
+
+    console.log(resultadosSubida);
+    return NextResponse.json({
+        message: "Archivos subidos correctamente",
+        uploadedFiles: resultadosSubida,
+    });
 }

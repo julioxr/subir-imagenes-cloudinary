@@ -21,9 +21,8 @@ export default function Home() {
             body: formData,
         });
         const data = await res.json();
-
+        console.log(data.uploadedFiles);
         setImages(data.uploadedFiles);
-        console.log(images);
     };
 
     return (
@@ -45,6 +44,16 @@ export default function Home() {
                 />
                 <button type="submit">Upload</button>
             </form>
+            <div className="flex mt-10 w-52 gap-8">
+                {images &&
+                    images.map((img) => (
+                        <img
+                            src={img.secure_url}
+                            key={img.secure_url}
+                            alt={img.secure_url}
+                        />
+                    ))}
+            </div>
         </main>
     );
 }
