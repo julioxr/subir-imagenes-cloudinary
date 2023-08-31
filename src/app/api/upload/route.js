@@ -40,7 +40,6 @@ export async function POST(request) {
         resultadosSubida.push(archivoSubido);
     }
 
-    console.log(resultadosSubida);
     return NextResponse.json({
         message: "Archivos subidos correctamente",
         uploadedFiles: resultadosSubida,
